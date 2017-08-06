@@ -13,3 +13,13 @@ export const getCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
     .then(data => data.categories)
+
+export const getRootPosts = () =>
+fetch(`${api}/posts`, { headers })
+  .then(res => res.json())
+  .then(data => data.posts)
+
+  export const getcategoryPosts = (category) =>
+  fetch(`${api}/${category}/posts`, { headers })
+    .then(res => res.json())
+    .then(data => data.posts)
