@@ -1,20 +1,8 @@
 import { combineReducers } from 'redux'
+import { post } from './post'
+import { comment } from './comment'
 
 function category (state={}, action) {
-  switch(action.type) {
-    default :
-      return state
-  }
-}
-
-function post (state={}, action) {
-  switch(action.type) {
-    default :
-      return state
-  }
-}
-
-function comment (state={}, action) {
   switch(action.type) {
     default :
       return state

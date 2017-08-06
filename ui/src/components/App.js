@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Route, Link, withRouter } from 'react-router-dom'
 import { getCategories } from '../utils/api'
 import logo from '../logo.svg';
 import '../App.css';
@@ -55,4 +56,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(connect()(App));
