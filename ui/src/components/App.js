@@ -16,11 +16,6 @@ import {
 
 class App extends Component {
 
-  state = {
-    categories: [],
-    posts: []
-  }
-
   componentDidMount() {
     this.props.getCategoriesFromApi()
   }
@@ -37,22 +32,23 @@ class App extends Component {
         </p>
         <div>
           <ul>
-            {this.state.categories.map((category) =>(
-              <li key={category.path}>
-                <Link to={category.path}>
-                  {category.name}
+            {this.props.category.items.map((categoryItem) =>(
+              <li key={categoryItem.path}>
+                <Link to={'/category/'+categoryItem.path}>
+                  {categoryItem.name}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
-        <Route exact path="/" onEnter={this.props.getRootPosts()} render={() => (
+        <Route exact path="/" render={() => (
           <div>
+            {console.log(this)}
             <h2>ALL</h2>
             <ListPosts />
           </div>
         )} />
-        <Route path="/category/:categoryName" onEnter={this.props.getCategoryPostsFromApi(this.props.match.params.categoryName)} render={({match}) => (
+        <Route path="/category/:categoryName" render={({match}) => (
           <div>
             <h2>CATEGORY - {match.params.categoryName}</h2>
             <ListPosts />
@@ -68,11 +64,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({categories, posts}) {
-  return {
-    categories,
-    posts
-  }
+function mapStateToProps ({category}) {
+  return {category}
 }
 
 function mapDispatchToProps (dispatch) {
