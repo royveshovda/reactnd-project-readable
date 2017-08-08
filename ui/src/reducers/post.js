@@ -1,4 +1,7 @@
 import {
+  FETCH_POSTS_PENDING,
+  FETCH_POSTS_FULFILLED,
+  //FETCH_POSTS_REJECTED,
   ADD_POST,
   UPDATE_POST,
   DELETE_POST,
@@ -14,6 +17,16 @@ const initialState = {
 
 export function post(state=initialState, action) {
   switch(action.type) {
+    case FETCH_POSTS_PENDING:
+      return {...state, fetching: true}
+    case FETCH_POSTS_FULFILLED:
+      console.log('Posts: ', action.payload)
+      return {
+        ...state,
+        fetching: false,
+        fetched: true,
+        items: action.payload
+      }
     case ADD_POST:
       break
     case UPDATE_POST:
