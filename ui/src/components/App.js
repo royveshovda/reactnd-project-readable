@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Route, Link, withRouter } from 'react-router-dom'
-import { getCategories, getRootPosts, getCategoryPosts } from '../utils/api'
+import { getCategories } from '../utils/api'
 import logo from '../logo.svg';
 import '../App.css';
 import ListPosts from './ListPosts'
-import {
-  FETCH_CATEGORIES_PENDING,
-  FETCH_CATEGORIES_FULFILLED,
-  //FETCH_CATEGORIES_REJECTED,
-  FETCH_POSTS_PENDING,
-  FETCH_POSTS_FULFILLED,
-  //FETCH_POSTS_REJECTED
-} from '../actions'
+import PostDetails from './PostDetails'
+import { FETCH_CATEGORIES_PENDING, FETCH_CATEGORIES_FULFILLED } from '../actions'
 
 class App extends Component {
 
@@ -25,16 +19,18 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>Project readable</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
         <div>
           <ul>
+            <li key='all'>
+              <Link to={'/'}>
+                ALL
+              </Link>
+            </li>
             {this.props.category.items.map((categoryItem) =>(
               <li key={categoryItem.path}>
-                <Link to={'/category/'+categoryItem.path}>
+                <Link to={'/'+categoryItem.path}>
                   {categoryItem.name}
                 </Link>
               </li>
@@ -45,18 +41,17 @@ class App extends Component {
           <div>
             {console.log(this)}
             <h2>ALL</h2>
-            <ListPosts />
+            <ListPosts category='ALL'/>
           </div>
         )} />
-        <Route path="/category/:categoryName" render={({match}) => (
+        <Route exact path="/:categoryName" render={({match}) => (
           <div>
-            <h2>CATEGORY - {match.params.categoryName}</h2>
-            <ListPosts />
+            <ListPosts category={match.params.categoryName}/>
           </div>
         )} />
-        <Route path="/post" render={() => (
+        <Route exact path="/:categoryName/:postId" render={({match}) => (
           <div>
-            <h2>POST</h2>
+            <PostDetails post_id={match.params.postId} />
           </div>
         )} />
       </div>
@@ -70,18 +65,6 @@ function mapStateToProps ({category}) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    getRootPosts: () => {
-      dispatch({type: FETCH_POSTS_PENDING})
-      getRootPosts().then((posts) => {
-        dispatch({type: FETCH_POSTS_FULFILLED, payload: posts})
-      })
-    },
-    getCategoryPostsFromApi: (category) => {
-      dispatch({type: FETCH_POSTS_PENDING})
-      getCategoryPosts(category).then((posts) => {
-        dispatch({type: FETCH_POSTS_FULFILLED, payload: posts})
-      })
-    },
     getCategoriesFromApi: () => {
       dispatch({type: FETCH_CATEGORIES_PENDING})
       getCategories().then((categories) => {
@@ -91,6 +74,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
