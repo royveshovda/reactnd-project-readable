@@ -5,7 +5,7 @@ import { FETCH_POSTS_PENDING, FETCH_POSTS_FULFILLED } from '../actions'
 import { getRootPosts, getCategoryPosts } from '../utils/api'
 
 class ListPosts extends Component{
-componentDidUpdate(prevProps, prevState){
+  componentDidUpdate(prevProps, prevState){
     const { category } = this.props
     const previousCategory = prevProps.category
 
@@ -72,4 +72,4 @@ function mapDispatchToProps (dispatch) {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListPosts);
+export default connect(mapStateToProps, mapDispatchToProps)(ListPosts)
