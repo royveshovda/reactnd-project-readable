@@ -6,6 +6,10 @@ Install packages: `npm install`
 Launch server: `node server`
 Unless modified in `config.js` server will use port 3001
 
+## UI
+To get the whole solution up and running you need to start the UI server in addition to the API.
+This can be done from the folder called 'ui'. Install packages from that folder as well.
+
 
 ## API
 Use an AuthorizationReactND header to work with your own data:
@@ -30,7 +34,7 @@ The following endpoints are available:
 `POST /posts`  
   **USAGE:**  
     Add a new post  
-  
+
   **PARAMS:**   
     id - UUID should be fine, but any unique id will work  
     timestamp - timestamp in whatever format you like, you can use Date.now() if you like  
@@ -49,7 +53,7 @@ The following endpoints are available:
 
   **PARAMS:**  
     option - String: Either "upVote" or "downVote"  
-    
+
 `PUT /posts/:id`  
   **USAGE:**  
     Edit the details of an existing post  
@@ -62,7 +66,7 @@ The following endpoints are available:
   **USAGE:**  
     Sets the deleted flag for a post to 'true'.   
     Sets the parentDeleted flag for all child comments to 'true'.  
-  
+
 `GET /posts/:id/comments`  
   **USAGE:**  
     Get all the comments for a single post  
@@ -89,7 +93,7 @@ The following endpoints are available:
 `PUT /comments/:id`  
   **USAGE:**  
     Edit the details of an existing comment  
-  
+
   **PARAMS:**  
     timestamp: timestamp. Get this however you want.  
     body: String  
